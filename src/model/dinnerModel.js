@@ -1,7 +1,7 @@
 //DinnerModel Object constructor
 class DinnerModel {
 
-  constructor(){
+constructor(){
 this.dishes=dishesConst; // to be replaced in lab 3
 this.nrGuests=0;
 this.guests=guestsConst;
@@ -9,12 +9,12 @@ this.menu=menuConst;
 
 //TODO Lab 1 implement the data structure that will hold number of guest
 // and selected dishes for the dinner menu
+}
 
-  }
-  test(){
-    this.removeDishFromMenu(1);
-    var nothing =0;
-  }
+test(){
+  this.getTotalMenuPrice();
+  var nothing =0;
+}
 
 setNumberOfGuests(num) {
   if(num >= 0){
@@ -47,11 +47,16 @@ getAllIngredients() {
 }
 
 //Returns the total price of the menu (all the ingredients multiplied by number of guests).
-getTotalMenuPrice() {
+getTotalMenuPriceFunc() {
   var allIngredients = this.getIngredients();
   var totalPrice = allIngredients.reduce(function(accumulator, ingredient){return accumulator+ingredient.price},0);
   return totalPrice;
-
+}
+getTotalMenuPrice() {
+  var allIngredients = this.getIngredients();
+  var totalPrice = 0
+  allIngredients.forEach(function(ingredient){totalPrice = totalPrice+ingredient.price});
+  return totalPrice;
 }
 
 //Adds the passed dish to the menu. If the dish of that type already exists on the menu
@@ -68,10 +73,7 @@ addDishToMenu(id) {
   }
   //Remove other dishes of the same type on the menu
   var sameType = this.getAllDishes(this.menu,type);
-  sameType.forEach(function(dish){
-    var test = dish.id;
-    return this.removeDishFromMenu(dish.id)
-  }, this)
+  sameType.forEach(function(dish){return this.removeDishFromMenu(dish.id)}, this)
  
   //Add the dish to the menu
   var dish = this.getDish(this.dishes, id);
@@ -117,15 +119,30 @@ getAllDishes(from,type,query) {
 }
 
 //
-getIngredients(filter){
+getIngredientsFunc(filter) {
   return this.dishes.map(function(dish){return dish.ingredients}).flat();
 }
+getIngredients(filter) {
+  var resArr = [];
+  this.dishes.forEach(function(dish){resArr.push(dish.ingredients)});
+  var resArr = resArr.flat(Infinity);
+  return resArr;
+}
 
-//
-uniq(a) {
-  return a.sort().filter(function(item, pos, ary) {
+//Removes duplicates from lists
+uniqFunc(list) {
+  return list.sort().filter(function(item, pos, ary) {
     return !pos || item != ary[pos - 1];
   })
+}
+uniq(list){
+  var resArr=[];
+  list.forEach(function(elem){
+    if(!resArr.includes(elem)){
+      resArr.push(elem);
+    }
+  })
+  return resArr;
 }
 
 //function that returns a dish of specific ID
@@ -139,7 +156,7 @@ getDish (from, id) {
 }
 }
 
-const guestsConst =[];
+const guestsConst = [];
 // the dishes constant contains an array of all the 
 // dishes in the database. Each dish has id, name, type,
 // image (name of the image file), description and
