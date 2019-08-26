@@ -2,6 +2,9 @@ window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
 
+  //Test
+  //model.test();
+
   /**
    * IMPORTANT: app.js is the only place where you are allowed to
    * query for elements in the whole document.
