@@ -88,32 +88,35 @@ describe("DinnerModel", () => {
   describe("menu", () => {
     it("can add dishes", () => {
       model.addDishToMenu(1);
-      expect(model.getFullMenu()).to.include(model.getDish(model.menu,1));
-
+      expect(model.getFullMenu()).to.include(model.getDish(model.dishes, 1));
       model.addDishToMenu(100);
-      expect(model.getFullMenu()).to.include(model.getDish(model.menu,1));
-      expect(model.getFullMenu()).to.include(model.getDish(model.menu,100));
+      expect(model.getFullMenu()).to.include(model.getDish(model.dishes, 1));
+      expect(model.getFullMenu()).to.include(model.getDish(model.dishes, 100));
     });
 
     it("overwrites dishes of the same type when adding", () => {
       model.addDishToMenu(1);
-      expect(model.getFullMenu()).to.include(model.getDish(model.menu,1));
+      expect(model.getFullMenu()).to.include(model.getDish(model.dishes, 1));
 
       model.addDishToMenu(2);
       // the old starter dish should no longer exist
-      expect(model.getFullMenu()).to.not.include(model.getDish(model.menu,1));
+      expect(model.getFullMenu()).to.not.include(
+        model.getDish(model.dishes, 1)
+      );
       // the new dish should exist
-      expect(model.getFullMenu()).to.include(model.getDish(model.menu,2));
+      expect(model.getFullMenu()).to.include(model.getDish(model.dishes, 2));
     });
 
     it("can remove dishes", () => {
       model.addDishToMenu(1);
       // dish 1 should be in the menu
-      expect(model.getFullMenu()).to.include(model.getDish(model.menu,1));
+      expect(model.getFullMenu()).to.include(model.getDish(model.dishes, 1));
 
       model.removeDishFromMenu(1);
       // should now be removed
-      expect(model.getFullMenu()).to.not.include(model.getDish(model.menu,1));
+      expect(model.getFullMenu()).to.not.include(
+        model.getDish(model.dishes, 1)
+      );
     });
   });
 });
