@@ -18,12 +18,12 @@ test(){
 
 setNumberOfGuests(num) {
   if(num >= 0){
-    DinnerModel.nrGuests=num;
+    this.nrGuests=num;
   }
 }
 
 getNumberOfGuests() {
-  return DinnerModel.nrGuests;
+  return this.nrGuests;
 }
 
 //Returns the dish that is on the menu for selected type 
@@ -40,20 +40,23 @@ getFullMenu() {
 
 //Returns all ingredients for all the dishes on the menu.
 getAllIngredients() {
-  var allIngredients = this.getIngredients();
+  return this.dishes.map(function(dish){return dish.ingredients}).flat();
+  //var allIngredients = this.getIngredients();
   //Unique ingredients? Quantity matters? Add quantities of ingredients with same name?
   //var un = this.uniq(flatIngredients);
-  return allIngredients;
+  //return allIngredients;
 }
 
 //Returns the total price of the menu (all the ingredients multiplied by number of guests).
+//Functional version
 getTotalMenuPriceFunc() {
-  var allIngredients = this.getIngredients();
+  var allIngredients = this.getAllIngredients();
   var totalPrice = allIngredients.reduce(function(accumulator, ingredient){return accumulator+ingredient.price},0);
   return totalPrice;
 }
+//Procedural version
 getTotalMenuPrice() {
-  var allIngredients = this.getIngredients();
+  var allIngredients = this.getAllIngredients();
   var totalPrice = 0
   allIngredients.forEach(function(ingredient){totalPrice = totalPrice+ingredient.price});
   return totalPrice;
@@ -119,7 +122,7 @@ getAllDishes(from,type,query) {
 }
 
 //
-getIngredientsFunc(filter) {
+/* getIngredientsFunc(filter) {
   return this.dishes.map(function(dish){return dish.ingredients}).flat();
 }
 getIngredients(filter) {
@@ -127,7 +130,7 @@ getIngredients(filter) {
   this.dishes.forEach(function(dish){resArr.push(dish.ingredients)});
   var resArr = resArr.flat(Infinity);
   return resArr;
-}
+} */
 
 //Removes duplicates from lists
 uniqFunc(list) {
@@ -514,6 +517,8 @@ const smallDishesConst = [{
     }]
   }
 ];
-const menuConst=Array.from(dishesConst);
+//const menuConst=Array.from(dishesConst);
+const menuConst=[];
+
 
 
