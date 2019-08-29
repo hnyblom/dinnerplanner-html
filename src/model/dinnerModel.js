@@ -121,11 +121,13 @@ class DinnerModel {
   }
 
   //Removes duplicates from lists
+  //Functional version
   uniqFunc(list) {
     return list.sort().filter(function(item, pos, ary) {
       return !pos || item != ary[pos - 1];
     });
   }
+  //Procedural version
   uniq(list) {
     var resArr = [];
     list.forEach(function(elem) {
