@@ -4,15 +4,10 @@ class DinnerModel {
     this.dishes = dishesConst; // to be replaced in lab 3
     this.nrGuests = 0;
     this.guests = guestsConst;
-    this.menu = [];
+    this.menu = menuConst;
 
     //TODO Lab 1 implement the data structure that will hold number of guest
     // and selected dishes for the dinner menu
-  }
-
-  test() {
-    this.getTotalMenuPrice();
-    var nothing = 0;
   }
 
   setNumberOfGuests(num) {
@@ -135,6 +130,7 @@ class DinnerModel {
   }
 }
 
+const menuConst = [];
 const guestsConst = [];
 // the dishes constant contains an array of all the
 // dishes in the database. Each dish has id, name, type,
