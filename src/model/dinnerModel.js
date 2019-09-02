@@ -23,7 +23,7 @@ class DinnerModel {
 
   //Returns the dish that is on the menu for selected type
   getSelectedDish(type) {
-    return this.menu.find(function(dish) {
+    return this.menu.find(function (dish) {
       return dish.type === type;
     });
   }
@@ -36,7 +36,7 @@ class DinnerModel {
   //Returns all ingredients for all the dishes on the menu.
   getAllIngredients() {
     return this.dishes
-      .map(function(dish) {
+      .map(function (dish) {
         return dish.ingredients;
       })
       .flat();
@@ -46,7 +46,7 @@ class DinnerModel {
   //Functional version
   getTotalMenuPrice() {
     var allIngredients = this.getAllIngredients();
-    var totalPrice = allIngredients.reduce(function(accumulator, ingredient) {
+    var totalPrice = allIngredients.reduce(function (accumulator, ingredient) {
       return accumulator + ingredient.price;
     }, 0);
     return totalPrice;
@@ -54,21 +54,21 @@ class DinnerModel {
 
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
   //it is removed from the menu and the new one added.
-  addDishToMenu(id) {
+  addDishToMenu(dish) {
     //Get the wanted dish from the database of dishes
-    this.getDish(id).then(lookupDish => {
-      var lookupDish = this.dishes.find(item => item.id === id); //this.getDish(this.dishes, id);
-      var type = lookupDish.type;
-      var existingDish = this.getSelectedDish(type);
+    // this.getDish(id).then(lookupDish => {
+    //   var lookupDish = this.dishes.find(item => item.id === id); //this.getDish(this.dishes, id);
+    //   var type = lookupDish.type;
+    //   var existingDish = this.getSelectedDish(type);
 
-      if (existingDish) {
-        this.removeDishFromMenu(existingDish.id);
-      }
+    //   if (existingDish) {
+    //     this.removeDishFromMenu(existingDish.id);
+    //   }
 
-      //Add the dish to the menu
-      var dish = lookupDish;
-      this.menu.push(dish);
-    });
+    //   //Add the dish to the menu
+    //   var dish = lookupDish;
+    // });
+    this.menu.push(dish);
     // var lookupDish = this.dishes.find(item => item.id === id); //this.getDish(this.dishes, id);
     // var type = lookupDish.type;
     // var existingDish = this.getSelectedDish(type);
@@ -84,7 +84,7 @@ class DinnerModel {
 
   //Removes dish from menu
   removeDishFromMenu(id) {
-    var foundIndex = this.menu.findIndex(function(dish) {
+    var foundIndex = this.menu.findIndex(function (dish) {
       return dish.id == id;
     });
     if (foundIndex != undefined) {
@@ -145,7 +145,7 @@ class DinnerModel {
   //Removes duplicates from lists
   //Functional version
   uniq(list) {
-    return list.sort().filter(function(item, pos, ary) {
+    return list.sort().filter(function (item, pos, ary) {
       return !pos || item != ary[pos - 1];
     });
   }
