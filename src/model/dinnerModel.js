@@ -7,8 +7,6 @@ class DinnerModel {
     this.nrGuests = 0;
     this.guests = guestsConst;
     this.menu = [];
-    //TODO Lab 1 implement the data structure that will hold number of guest
-    // and selected dishes for the dinner menu
   }
 
   setNumberOfGuests(num) {
@@ -55,31 +53,7 @@ class DinnerModel {
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
   //it is removed from the menu and the new one added.
   addDishToMenu(dish) {
-    //Get the wanted dish from the database of dishes
-    // this.getDish(id).then(lookupDish => {
-    //   var lookupDish = this.dishes.find(item => item.id === id); //this.getDish(this.dishes, id);
-    //   var type = lookupDish.type;
-    //   var existingDish = this.getSelectedDish(type);
-
-    //   if (existingDish) {
-    //     this.removeDishFromMenu(existingDish.id);
-    //   }
-
-    //   //Add the dish to the menu
-    //   var dish = lookupDish;
-    // });
     this.menu.push(dish);
-    // var lookupDish = this.dishes.find(item => item.id === id); //this.getDish(this.dishes, id);
-    // var type = lookupDish.type;
-    // var existingDish = this.getSelectedDish(type);
-
-    // if (existingDish) {
-    //   this.removeDishFromMenu(existingDish.id);
-    // }
-
-    // //Add the dish to the menu
-    // var dish = lookupDish;
-    // this.menu.push(dish);
   }
 
   //Removes dish from menu
@@ -118,28 +92,6 @@ class DinnerModel {
         return json.results;
       })
       .catch(error => console.error("Error:", error));
-
-    // return from.filter(function (dish) {
-    //   let found = true;
-    //   if (query) {
-    //     found = false;
-    //     dish.ingredients.forEach(function (ingredient) {
-    //       if (ingredient.name.indexOf(query) !== -1) {
-    //         found = true;
-    //       }
-    //     });
-    //     if (dish.name.indexOf(query) !== -1) {
-    //       found = true;
-    //     }
-    //   }
-    //   if (type === undefined) {
-    //     return dish;
-    //   }
-    //   if (type == "") {
-    //     return found;
-    //   }
-    //   return dish.type === type && found;
-    // });
   }
 
   //Removes duplicates from lists
@@ -155,18 +107,13 @@ class DinnerModel {
     if (!id || id === "") {
       return undefined;
     }
-    console.log(`${BASE_URL}/recipes/${id}/information`);
     return fetch(`${BASE_URL}/recipes/${id}/information`, {
       headers: {
         "X-Mashape-Key": "3d2a031b4cmsh5cd4e7b939ada54p19f679jsn9a775627d767"
       }
-    }).then(res => res.json());
-    // for (let dsh of from) {
-    //   if (dsh.id == id) {
-    //     return dsh;
-    //   }
-    // }
-    // return undefined;
+    })
+      .then(res => res.json())
+      .catch(error => console.error("Error:", error));
   }
 }
 
