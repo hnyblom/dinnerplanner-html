@@ -6,8 +6,8 @@ class HomeView {
   
   render() {
     var content = /* template */ `
-    <div class="header d-flex align-items-center justify-content-center">
-      <h1>Dinner Planner</h1>
+    <div id="header" class="header d-flex align-items-center justify-content-center">
+    <h1>DINNER PLANNER</h1>        
     </div>
     <div class="container text-center full-vh d-flex align-items-center justify-content-center flex-column">
         <p class="text-center p-max-width">
@@ -16,9 +16,7 @@ class HomeView {
           arcu. Maecenas a efficitur leo.
         </p>
         <div class="spacing-medium"></div>
-        <a id="startBtn" class="btn btn-lg btn-primary-color">
-          Create new dinner
-        </a>
+        <button id="startBtn" type="button" class="btn btn-outline-secondary">Create new dinner</button>
       </div>
     `;
     this.container.innerHTML = content;
@@ -26,6 +24,6 @@ class HomeView {
   }
 
   afterRender() {
-    this.startBtn = this.container.find("#startBtn");
+    this.startBtn = $(this.container).find("#startBtn");
   }
 }

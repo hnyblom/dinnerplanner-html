@@ -1,7 +1,14 @@
 window.onload = function () {
   //We instantiate our model
   const model = new DinnerModel();
-
+  let homeView = new HomeView(document.getElementById("body"));
+  let searchView = new SearchView(document.getElementById("body"), model);
+  //homeView.render();
+  //homeView.startBtn.onclick=(overviewView.render());
+  searchView.render();
+  let overviewView = new OverviewView(document.getElementById("overview"), model);
+  overviewView.render();
+  
   //Test
   //model.test();
 
