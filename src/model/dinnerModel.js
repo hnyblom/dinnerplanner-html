@@ -43,8 +43,8 @@ class DinnerModel {
   //Returns the total price of the menu (all the ingredients multiplied by number of guests).
   //Functional version
   getTotalMenuPrice() {
-    var allIngredients = this.getAllIngredients();
-    var totalPrice = allIngredients.reduce(function (accumulator, ingredient) {
+    const allIngredients = this.getAllIngredients();
+    const totalPrice = allIngredients.reduce(function (accumulator, ingredient) {
       return accumulator + ingredient.price;
     }, 0);
     return totalPrice;
@@ -58,7 +58,7 @@ class DinnerModel {
 
   //Removes dish from menu
   removeDishFromMenu(id) {
-    var foundIndex = this.menu.findIndex(function (dish) {
+    const foundIndex = this.menu.findIndex(function (dish) {
       return dish.id == id;
     });
     if (foundIndex != undefined) {
@@ -70,6 +70,8 @@ class DinnerModel {
   //you can use the filter argument to filter out the dish by name or ingredient (use for search)
   //if you don't pass any query all the dishes will be returned
   getAllDishes(type, query) {
+    document.getElementById("loader").style.display = "block";
+
     let searchParams = new URLSearchParams();
     if (type && type !== undefined) {
       searchParams.append("type", type);
@@ -78,7 +80,7 @@ class DinnerModel {
       searchParams.append("query", query);
     }
 
-    let searchStr = searchParams.toString();
+    const searchStr = searchParams.toString();
     return fetch(
       `${BASE_URL}/recipes/search${searchStr === "" ? "" : "?"}${searchStr}`,
       {
@@ -89,9 +91,13 @@ class DinnerModel {
     )
       .then(res => res.json())
       .then(json => {
+        document.getElementById("loader").style.display = "none";
         return json.results;
       })
-      .catch(error => console.error("Error:", error));
+      .catch(error => {
+        document.getElementById("loader").style.display = "none";
+        console.error("Error:", error);
+      });
   }
 
   //Removes duplicates from lists
@@ -107,13 +113,20 @@ class DinnerModel {
     if (!id || id === "") {
       return undefined;
     }
+    document.getElementById("loader").style.display = "block";
     return fetch(`${BASE_URL}/recipes/${id}/information`, {
       headers: {
         "X-Mashape-Key": "3d2a031b4cmsh5cd4e7b939ada54p19f679jsn9a775627d767"
       }
     })
-      .then(res => res.json())
-      .catch(error => console.error("Error:", error));
+      .then(res => {
+        document.getElementById("loader").style.display = "none";
+        return res.json();
+      })
+      .catch(error => {
+        document.getElementById("loader").style.display = "none";
+        console.error("Error:", error);
+      });
   }
 }
 
