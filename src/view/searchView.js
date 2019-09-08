@@ -2,20 +2,14 @@ class SearchView {
   constructor(container, model) {
     this.container = container;
     this.model = model;
-    this.overviewView = new OverviewView(document.getElementById("overview"), model);
-
   }
-
   render(dishId) {
-  var content = 
-  `
-  <div id="header" class="header d-flex align-items-center justify-content-center">
-    <h1>DINNER PLANNER</h1>        
-  </div>
+    var content = `
+  
     <div class="row">
-      <div id="overview" class="col-4 border"></div>
+      <div id="overview" class="col-md-4 border"></div>
 
-      <div class="col-8">
+      <div class="col-md-8">
         <p class="text-left p-max-width h2">Find a dish</p>
         <div class="space-sm"></div>
         <div class="row">
@@ -93,10 +87,9 @@ class SearchView {
       </div>
   </div>
   `;
-  this.container.innerHTML = content;
-  this.afterRender();
+    this.container.innerHTML += content;
+    this.afterRender();
   }
-  
-  afterRender() {
-  }
+
+  afterRender() {}
 }

@@ -1,11 +1,11 @@
 class OverviewView {
-    constructor(container, model) {
-        this.container = container;
-        this.model = model;
-    }
+  constructor(container, model) {
+    this.container = container;
+    this.model = model;
+  }
 
-    render() {
-        var content =`
+  render() {
+    const content = `
         <p class="text-left p-max-width h2">My Dinner</p>
         <div class="space"></div>
         <div class="row">
@@ -47,10 +47,9 @@ class OverviewView {
         <button id="confirmButton" class="btn btn-outline-secondary btn-sm" type="button">Confirm dinner</button>
       </div>
     `;
-        this.container.innerHTML = content;
-        this.afterRender();
-    }
+    this.container.innerHTML = content;
+    this.afterRender();
+  }
 
-    afterRender() {
-    }
+  afterRender() {}
 }

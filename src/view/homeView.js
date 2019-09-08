@@ -3,7 +3,7 @@ class HomeView {
     this.container = container;
     this.startBtn = null;
   }
-  
+
   render() {
     var content = /* template */ `
     <div id="header" class="header d-flex align-items-center justify-content-center">
@@ -19,7 +19,7 @@ class HomeView {
         <button id="startBtn" type="button" class="btn btn-outline-secondary">Create new dinner</button>
       </div>
     `;
-    this.container.innerHTML = content;
+    this.container.innerHTML += content;
     this.afterRender();
   }
 
