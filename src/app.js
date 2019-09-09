@@ -1,6 +1,6 @@
 const IMAGE_BASE_URL = "https://spoonacular.com/recipeImages/";
 
-window.onload = function () {
+window.onload = function() {
   //We instantiate our model
   const pageContent = document.querySelector("#page-content");
   const model = new DinnerModel();
@@ -15,9 +15,9 @@ window.onload = function () {
   // render
   bannerView.render(); // render first to render banner on top
 
-  searchView.render();
+  // searchView.render();
   // dishView.render(592479);
-  // dinnerOverviewView.render();
+  dinnerOverviewView.render();
   // dinnerPrintoutView.render();
 
   // homeView.render();

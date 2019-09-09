@@ -5,8 +5,8 @@ class DinnerModel {
   constructor() {
     this.dishes = dishesConst; // to be replaced in lab 3
     this.nrGuests = 0;
-    this.menu = menuInit;
     this.guests = guestsConst;
+    this.menu = menuInit;
   }
 
   setNumberOfGuests(num) {
@@ -47,7 +47,7 @@ class DinnerModel {
     const totalPrice = this.menu.reduce(function(accumulator, dish) {
       return accumulator + dish.pricePerServing;
     }, 0);
-    return totalPrice;
+    return totalPrice * this.nrGuests;
   }
 
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu

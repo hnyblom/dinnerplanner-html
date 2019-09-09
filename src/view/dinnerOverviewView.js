@@ -5,14 +5,14 @@ class DinnerOverviewView {
   }
   render() {
     const menu = this.model.getFullMenu();
-    console.log(menu[0].ingredients);
     const totalPrice = this.model.getTotalMenuPrice();
+    const numOfGuests = this.model.getNumberOfGuests();
     const content = `
       <div class="container">
         <div class="row">
           <div class="col">
             <div class="m-3">
-              <h2 class="ml-2 float-left">Dinner for X people</h2>
+              <h2 class="ml-2 float-left">Dinner for ${numOfGuests} people</h2>
               <button class="btn btn-success float-right mr-2">
                 Go back and edit dinner
               </button>
@@ -33,7 +33,7 @@ class DinnerOverviewView {
                         <p class="card-text">${dish.title}</p>
                       </div>
                     </div>
-                    <p>${dish.pricePerServing}</p>
+                    <p>${dish.pricePerServing * 0}</p>
                   </div>
                 
                 `

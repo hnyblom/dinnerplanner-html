@@ -4,7 +4,9 @@ class DishView {
     this.model = model;
   }
   render(dishID) {
+    const numOfGuests = this.model.getNumberOfGuests();
     this.model.getDish(dishID).then(dish => {
+      console.log(dish);
       const content = `
         <div class="row">
           <div id="overview" class="col-md-4 border"></div>
@@ -23,7 +25,7 @@ class DishView {
               </div>
               <div class="col p-3">
                 <div class="border ingredients-banner p-2">
-                <h4>Ingredients for ${this.model.getNumberOfGuests()} people</h4>
+                <h4>Ingredients for ${numOfGuests} people</h4>
                   <hr class="my-4"/>
                   <div>
                     <table class="table table-borderless">
@@ -32,9 +34,8 @@ class DishView {
                         .map(
                           ingredient => `
                                 <tr>
-                                  <th scope="row">${ingredient.amount} ${
-                            ingredient.unit
-                          }</th>
+                                  <th scope="row">${ingredient.amount *
+                                    numOfGuests} ${ingredient.unit}</th>
                                   <th>${ingredient.name}</th>
                                   <th>SEK</th>
                                   <th>2.0</th>
