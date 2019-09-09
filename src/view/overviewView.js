@@ -6,7 +6,7 @@ class OverviewView {
 
   render() {
     const content = `
-        <p class="text-left p-max-width h2">My Dinner</p>
+        <p class="text-left p-max-width mt-2 h2">My Dinner</p>
         <div class="space"></div>
         <div class="row">
             <div class="col">People:</div>
