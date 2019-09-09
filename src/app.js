@@ -1,17 +1,24 @@
 window.onload = function() {
   //We instantiate our model
+  const body = document.getElementById("body");
   const model = new DinnerModel();
-  const homeView = new HomeView(document.getElementById("body"));
-  const searchView = new SearchView(document.getElementById("body"), model);
-  const bannerView = new Banner(document.getElementById("body"));
-  const dishView = new DishView(document.getElementById("body"));
+  const homeView = new HomeView(body);
+  const searchView = new SearchView(body, model);
+  const bannerView = new Banner(body);
+  const dishView = new DishView(body);
+  const dinnerPrintouutView = new DinnerPrintoutView(
+    document.getElementById("body")
+  );
   const dinnerOverviewView = new DinnerOverviewView(
     document.getElementById("body")
   );
+
+  // render
   bannerView.render(); // render first to render banner on top
 
   // dishView.render();
-  dinnerOverviewView.render();
+  // dinnerOverviewView.render();
+  dinnerPrintouutView.render();
 
   // searchView.render();
 

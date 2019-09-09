@@ -56,7 +56,7 @@ class DinnerOverviewView {
       <div class="row">
         <div class="col">
           <hr/>
-          <button class="btn btn-success">Print Full Recipe</button>
+          <button class="btn btn-success text-center">Print Full Recipe</button>
         </div>
       </div>
     `;
