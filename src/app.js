@@ -1,32 +1,24 @@
-window.onload = function() {
-  //We instantiate our model
-  const body = document.getElementById("body");
-  const model = new DinnerModel();
-  const bannerView = new Banner(body);
+const IMAGE_BASE_URL = "https://spoonacular.com/recipeImages/";
 
-  const homeView = new HomeView(body);
-  const searchView = new SearchView(body, model);
-  const dishView = new DishView(body);
-  const dinnerPrintoutView = new DinnerPrintoutView(
-    document.getElementById("body")
-  );
-  const dinnerOverviewView = new DinnerOverviewView(
-    document.getElementById("body")
-  );
+window.onload = function () {
+  //We instantiate our model
+  const pageContent = document.querySelector("#page-content");
+  const model = new DinnerModel();
+  const bannerView = new Banner(pageContent);
+
+  const homeView = new HomeView(pageContent);
+  const searchView = new SearchView(pageContent, model);
+  const dishView = new DishView(pageContent, model);
+  const dinnerPrintoutView = new DinnerPrintoutView(pageContent, model);
+  const dinnerOverviewView = new DinnerOverviewView(pageContent, model);
 
   // render
   bannerView.render(); // render first to render banner on top
 
   searchView.render();
-  // dishView.render();
+  // dishView.render(592479);
   // dinnerOverviewView.render();
   // dinnerPrintoutView.render();
-
-  // const overviewView = new OverviewView(
-  //   document.getElementById("overview"),
-  //   model
-  // );
-  // overviewView.render();
 
   // homeView.render();
   //homeView.startBtn.onclick=(overviewView.render());

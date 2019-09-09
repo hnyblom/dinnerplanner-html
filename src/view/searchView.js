@@ -1,4 +1,3 @@
-const IMAGE_BASE_URL = "https://spoonacular.com/recipeImages/";
 class SearchView {
   constructor(container, model) {
     this.container = container;
@@ -6,6 +5,7 @@ class SearchView {
   }
   render() {
     this.model.getAllDishes().then(dishes => {
+      console.log(dishes);
       var content = `
         <div class="container-fluid">
           <div class="row">
@@ -56,7 +56,6 @@ class SearchView {
   }
 
   afterRender() {
-    console.log("HELOO");
     const overviewView = new OverviewView(
       document.getElementById("overview"),
       this.model

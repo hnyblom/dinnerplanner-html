@@ -4,6 +4,7 @@ class DinnerPrintoutView {
     this.model = model;
   }
   render() {
+    const menu = this.model.getFullMenu();
     const content = `
       <div class="row">
         <div class="col">
@@ -19,30 +20,35 @@ class DinnerPrintoutView {
         <hr />
       </div>
       <div class="container">
-        <div class="row">
-          <div class="col-3">
-            <img src="images/bakedbrie.jpg" class="img-fluid shadow" alt="">
-          </div>
-          <div class="col-4">
-            <h3>Lasange</h3>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel laoreet orci. Nullam ut iaculis diam. Aliquam
-            magna nulla, congue ut elementum hendrerit, dignissim at mauris. Quisque ac felis sed nibh elementum euismod a sit amet
-            arcu. Maecenas a efficitur leo.
-            </p>
-          </div>
-          <div class="col-4">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel laoreet orci. Nullam ut iaculis diam. Aliquam
-            magna nulla, congue ut elementum hendrerit, dignissim at mauris. Quisque ac felis sed nibh elementum euismod a sit amet
-            arcu. Maecenas a efficitur leo.
-            
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel laoreet orci. Nullam ut iaculis diam. Aliquam
-            magna nulla, congue ut elementum hendrerit, dignissim at mauris. Quisque ac felis sed nibh elementum euismod a sit amet
-            arcu. Maecenas a efficitur leo.
-            </p>
-          </div>
-        </div>
+        
+          ${menu
+            .map(
+              dish =>
+                `
+              <div class="row">
+                <div class="col-3">
+                  <img src="${dish.image}" class="img-fluid shadow" alt="${
+                  dish.title
+                }">
+                </div><div class="col-4">
+                  <h3>${dish.title}</h3>
+                  <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel laoreet orci. Nullam ut iaculis diam. Aliquam
+                  magna nulla, congue ut elementum hendrerit, dignissim at mauris. Quisque ac felis sed nibh elementum euismod a sit amet
+                  arcu. Maecenas a efficitur leo.
+                  </p>
+                </div>
+                <div class="col-5">
+                  <p>
+                  ${dish.instructions}
+                  </p>
+                </div>
+              </div>
+              <hr/>
+          `
+            )
+            .join("")}
+          
       </div>
     `;
     this.container.innerHTML += content;
