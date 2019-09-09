@@ -11,7 +11,8 @@ class SearchView {
           <div class="row">
             <div id="overview" class="col-md-4 border"></div>
             <div class="col-md-8">
-              <p class="text-left p-max-width mt-2 h2">Find a dish</p>
+            <p class="text-left p-max-width mt-2 h2">Find a dish</p>
+              
               <div class="space-sm"></div>
               <div class="row">
                 <div class="col">
