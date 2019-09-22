@@ -1,4 +1,4 @@
-class SidebarController {
+class DinnerOverviewController {
     constructor(view, model, app) {
         this.view = view;
         this.model = model;

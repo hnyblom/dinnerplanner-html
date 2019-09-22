@@ -1,4 +1,4 @@
-class SidebarController {
+class SearchController {
     constructor(view, model, app) {
         this.view = view;
         this.model = model;
@@ -10,6 +10,8 @@ class SidebarController {
       this.view.render();
         // TODO lab 3
     }
-
+    watch() {
+        
+    }
     // TODO Lab 3
 }
