@@ -45,11 +45,5 @@ class SearchView {
   }
 
   afterRender(dishes) {}
-
-  update(payload) {
-    // Dishes are changed
-    this.render();
-  }
-  watch(){}
   
 }

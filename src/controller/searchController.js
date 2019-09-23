@@ -4,18 +4,20 @@ class SearchController {
         this.model = model;
         this.app = app;
     }
-
+    observers(){
+        this.model.addObserver(this);
+    }
     renderView() {
-        this.model.addObserver(this.view);
         Promise.resolve(this.model.dishes).then(dishes => {
             this.loop(dishes);
         })
     }
+
     loop(dishes){
         this.view.render(dishes);
             dishes.forEach(dish => {
                 document.getElementById(dish.id.toString()).addEventListener('click', ()=>{
-                    this.app.show("dishView", dish.id, this.view)});
+                    this.app.show("dishView", dish.id, this)});
                 });
             document.getElementById("searchBtn").addEventListener('click', ()=>{
                 var searchText = document.getElementById("searchInput").value.toLowerCase();
@@ -26,9 +28,10 @@ class SearchController {
                     this.model.dishes = filteredDishes;
                     this.loop(this.model.dishes);
                 })
-                
-                
-
             });
     }
+
+    update(payload) {
+        this.renderView();
+      }
 }

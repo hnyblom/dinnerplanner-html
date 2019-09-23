@@ -5,14 +5,17 @@ class OverviewController {
         this.app = app;
         // TODO lab 3
     }
-
+    observers(){
+        this.model.addObserver(this);
+    }
     renderView() {
-      this.model.addObserver(this.view);
-      this.view.render();
-      document.getElementById("confirmButton").addEventListener('click',()=>{
-          this.app.show("dinnerOverviewView")
-      });
+        this.view.render();
+        document.getElementById("confirmButton").addEventListener('click',()=>{
+            this.app.show("dinnerOverviewView")
+        });
     }
 
-    // TODO Lab 3
+    update(payload) {
+        this.renderView();
+      }
 }

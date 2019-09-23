@@ -3,7 +3,6 @@ class DinnerPrintoutController {
         this.view = view;
         this.model = model;
         this.app = app;
-        // TODO lab 3
     }
 
     renderView() {
@@ -13,5 +12,7 @@ class DinnerPrintoutController {
       })
     }
 
-    // TODO Lab 3
+    update(){
+        this.renderView();
+    }
 }

@@ -11,11 +11,11 @@ class DinnerModel {
     this.observers = []
   }
 
-  setNumberOfGuests(num) {
+  setNumberOfGuests(num, arg) {
     if (num >= 0) {
       this.nrGuests = num;
     }
-    this.notifyObservers();
+    this.notifyObservers(arg);
   }
 
   getNumberOfGuests() {
@@ -54,20 +54,20 @@ class DinnerModel {
 
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
   //it is removed from the menu and the new one added.
-  addDishToMenu(dish) {
+  addDishToMenu(dish, arg) {
     this.menu.push(dish);
-    this.notifyObservers();
+    this.notifyObservers(arg);
   }
 
   //Removes dish from menu
-  removeDishFromMenu(id) {
+  removeDishFromMenu(id, arg) {
     const foundIndex = this.menu.findIndex(function(dish) {
       return dish.id == id;
     });
     if (foundIndex != undefined) {
       this.menu.splice(foundIndex, 1);
     }
-    this.notifyObservers();
+    this.notifyObservers(arg);
   }
 
   //function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")

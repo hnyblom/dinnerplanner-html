@@ -96,16 +96,13 @@ class OverviewView {
   }
 
   afterRender() {
-    
-
     var dropdownB1 = document.getElementById("sel1");
     var dropdownB2 = document.getElementById("sel2");
     var dropdownB3 = document.getElementById("sel3");
     var dropdownB4 = document.getElementById("sel4");
     var dropdownB5 = document.getElementById("sel5");
     dropdownB1.addEventListener('click', () => {this.changeGuests(1)});
-    dropdownB2.addEventListener('click', () => {
-      this.changeGuests(2)});
+    dropdownB2.addEventListener('click', () => {this.changeGuests(2)});
     dropdownB3.addEventListener('click', () => {this.changeGuests(3)});
     dropdownB4.addEventListener('click', () => {this.changeGuests(4)});
     dropdownB5.addEventListener('click', () => {this.changeGuests(5)});
@@ -114,12 +111,6 @@ class OverviewView {
       document.getElementById(dish.id.toString()+"rm").addEventListener('click', ()=>{
         this.model.removeDishFromMenu(dish.id)
         })});
-    
-
-  }
-
-  update(payload) {
-    this.render();
   }
   changeGuests(value){
     //var value = document.getElementById("dropdownButton").value;

@@ -6,11 +6,12 @@ class DinnerOverviewController {
         // TODO lab 3
     }
 
-    renderView() {
+    observers(){
         this.model.removeObserver(this.app.overviewView);
         this.model.removeObserver(this.app.searchView);
-        this.model.addObserver(this.view);
-
+        this.model.addObserver(this);
+    }
+    renderView() {
         this.view.render();
         document.getElementById("backSearchBtn").addEventListener('click',()=>{
             this.app.show("searchView");
@@ -18,6 +19,9 @@ class DinnerOverviewController {
         document.getElementById("printBtn").addEventListener('click',()=>{
             this.app.show("printView");
         });
+    }
+    update(){
+        this.renderView();
     }
 
     // TODO Lab 3

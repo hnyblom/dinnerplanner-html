@@ -21,12 +21,5 @@ class HomeView {
 
   afterRender() {
     this.startBtn = document.getElementById("startBtn");
-    
-  }
-
-  update(payload) {
-    // TODO Lab3
-    this.startBtn = $(this.container).find("#startBtn");
-    
   }
 }

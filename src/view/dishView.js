@@ -2,11 +2,12 @@ class DishView {
   constructor(container, model) {
     this.container = container;
     this.model = model;
+    this.id = 0;
   }
   render(dishID) {
     const numOfGuests = this.model.getNumberOfGuests();
+    this.id = dishID;
     this.model.getDish(dishID).then(dish => {
-      console.log(dish);
       const content = `
             <div class="row">
               <div class="col-1"></div>
@@ -49,7 +50,7 @@ class DishView {
                           <th><button id="addMenuBtn" class="btn btn-outline-secondary">Add to menu</button></th>
                           <th></th>
                           <th>SEK</th>
-                          <th>200</th>
+                          <th>${dish.pricePerServing * numOfGuests}</th>
                         </tr>
                       </tbody>  
                       <tr>
@@ -72,8 +73,5 @@ class DishView {
       this.model.addDishToMenu(dish)
     });
     
-  }
-  update(dishID){
-    this.render(dishID);
   }
 }

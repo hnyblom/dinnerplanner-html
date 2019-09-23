@@ -3,23 +3,21 @@ class DishController {
         this.view = view;
         this.model = model;
         this.app = app;
-        // TODO lab 3
     }
 
-    renderView(dishID, observer) {
+    observers(observer){
         this.model.removeObserver(observer);
-        this.model.addObserver(this.view);
+        this.model.addObserver(this);
+    }
+
+    renderView(dishID) {
         this.view.render(dishID).then(dish=>{
             document.getElementById("backSearchBtn").addEventListener('click',()=>{
                 this.app.show("searchView");
             })
         });
-            
-         
-        
-       
-      
     }
-
-    // TODO Lab 3
+    update(){
+        this.renderView(this.view.id);
+    }
 }
