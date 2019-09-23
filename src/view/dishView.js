@@ -63,7 +63,7 @@ class DishView {
       this.container.innerHTML = content;
       this.afterRender(dish);
     });
-    
+    return this.model.getDish(dishID);
   }
 
   afterRender(dish) {

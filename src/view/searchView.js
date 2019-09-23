@@ -3,27 +3,26 @@ class SearchView {
     this.container = container;
     this.model = model;
   }
-  render() {
-    this.model.dishes.then(dishes => {
+  render(dishes) {
       //console.log(dishes);
       var content = `
           
               <div class="row space">
                 <div class="col"><p class="text-left p-max-width mt-2 h2">Find a dish</p></div>
                 <div class="col">
-                  <input class="form-control" type="text" placeholder="Enter key words">
+                  <input id="searchInput" class="form-control" type="text" placeholder="Enter key words">
                 </div>
                 <div class="col">
-                  <select class="form-control">
+                  <select id="searchCat" class="form-control">
                     <option>All</option>
-                    <option>Apetizer</option>
+                    <option>Apetizer</option>s
                     <option>Main course</option>
                     <option>Side dish</option>
                     <option>Dessert</option>
                   </select>
                 </div>
                 <div class="col">
-                  <button id="searchButton" class="btn btn-outline-secondary btn-sm" type="button">Search</button>
+                  <button id="searchBtn" class="btn btn-outline-secondary btn-sm" type="button">Search</button>
                 </div>
               </div>
               <div class="card-columns">
@@ -41,14 +40,11 @@ class SearchView {
               </div>           
       `;
       this.container.innerHTML = content;
-      this.afterRender(dishes);
-    });
+      // this.afterRender(dishes);
+
   }
 
-  afterRender(dishes) {
-
-    
-  }
+  afterRender(dishes) {}
 
   update(payload) {
     // Dishes are changed

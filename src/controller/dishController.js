@@ -9,11 +9,12 @@ class DishController {
     renderView(dishID, observer) {
         this.model.removeObserver(observer);
         this.model.addObserver(this.view);
-        this.view.render(dishID)
-        /* .then(
+        this.view.render(dishID).then(dish=>{
             document.getElementById("backSearchBtn").addEventListener('click',()=>{
-                this.app.show("searchView")
-            })); */
+                this.app.show("searchView");
+            })
+        });
+            
          
         
        

@@ -133,7 +133,9 @@ class DinnerModel {
       });
   }
   addObserver(observer){
-		this.observers.push(observer);
+    if(!this.observers.includes(observer)){
+      this.observers.push(observer);
+    }
   }
   removeObserver(observer){
     this.observers = this.observers.filter(function(ele){
