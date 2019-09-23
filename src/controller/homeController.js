@@ -8,14 +8,10 @@ class HomeController {
 
     renderView() {
       this.view.render();
+      document.getElementById("startBtn").addEventListener('click',() => {this.changeView()});
         // TODO lab 3
     }
    
-    watch(){
-        //this.view.startBtn.onclick = this.app.show("searchView");
-        //this.changeView();
-        this.view.startBtn.addEventListener("click", this.changeView());
-    }
     changeView(){
         this.app.show("searchView");
     }

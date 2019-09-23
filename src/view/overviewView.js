@@ -17,78 +17,112 @@ class OverviewView {
       isMobile = true;
     }
     
-    const menu = this.model.getFullMenu();
+    const menu = this.model.menu;
     const totalPrice = this.model.getTotalMenuPrice();
     const numOfGuests = this.model.getNumberOfGuests();
     const content = `
-        <div class="row"> 
+        <div class="row space"> 
             <div class="col"><p class="text-left p-max-width mt-2 h2">My Dinner</p></div>
-            <div class="col">
-            ${
-              isMobile
-                ? `<nav class="navbar navbar-light light-blue lighten-4 mobileShow">
-                <a class="navbar-brand" href="#"></a>
-                <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
-                    aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span></button>`
-                : ""
-            }  
-            </div>
-        </div>
-            ${
-              isMobile
-                ? `<div class="collapsMobile collapse navbar-collapse" id="navbarSupportedContent1">`
-                : ""
-            }
-            <div class="nonMobileShow" id="navContent">
-                <div class="row">
-                    <div class="col">People:</div>
-                    <div class="dropdown col">
-                        <button id="dropdownButton" class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span id="dropdownText" class="caret">${numOfGuests}</span>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">1</a>
-                            <a class="dropdown-item" href="#">2</a>
-                            <a class="dropdown-item" href="#">3</a>
-                            <a class="dropdown-item" href="#">4</a>
-                            <a class="dropdown-item" href="#">5</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="space-lg"></div>
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col">Dish name</th>
-                            <th scope="col">Cost</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>To be filled</td>
-                            <td>To be filled</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="space"></div>
-                <div class="row">
-                    <div class="col">Total cost:</div>
-                    <div class="col" id="sum">${this.model.getTotalMenuPrice()}</div>
-                </div>
-                <div class="space"></div>
-                <button id="confirmButton" class="btn btn-outline-secondary btn-sm" type="button">Confirm dinner</button>
-            </div>
+            
+              ${
+                isMobile
+                  ? `<div class="col">
+                  <nav class="navbar navbar-light light-blue lighten-4 mobileShow">
+                  <a class="navbar-brand" href="#"></a>
+                  <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+                      aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span></button>
+                      </div>
+                      `
+                  : ""
+              }  
+            
         
-        ${isMobile ? `</div></nav>` : ""}
+              ${
+                isMobile
+                  ? `<div class="collapsMobile collapse navbar-collapse" id="navbarSupportedContent1">`
+                  : ""
+              }
+            <div class="col">
+              <a class="nonMobileShow" id="navContent">
+                <div><p class="text-right p-max-width mt-2">People:</p></div>
+            </div>
+            <div class="dropdown col">
+                <button id="dropdownButton" class="btn btn-outline-secondary btn-sm dropdown-toggle btn-right" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="dropdownText" class="caret">${numOfGuests}</span>
+                </button>
+                <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button id="sel1" class="dropdown-item" href="#">1</button>
+                    <button id="sel2" class="dropdown-item" href="#">2</button>
+                    <button id="sel3" class="dropdown-item" href="#">3</button>
+                    <button id="sel4" class="dropdown-item" href="#">4</button>
+                    <button id="sel5" class="dropdown-item" href="#">5</button>
+                </div>
+            </div>
+          </div>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Dish name</th>
+                        <th scope="col">Cost</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>    
+                  ${menu
+                    .map(
+                      dish =>`
+                    <tr>
+                    <td>${dish.title}</td>
+                    <td>${dish.pricePerServing}</td>
+                    <td><button id="${dish.id}rm" class="btn btn-outline-secondary btn-sm btn-right" type="button">X</button></td>
+                    </tr>
+                    `).join("")}
+                </tbody>
+            </table>
+            <div class="space"></div>
+            <div class="row">
+                <div class="col">Total cost:</div>
+                <div class="col" id="sum">${totalPrice}</div>
+            </div>
+            <div class="space"></div>
+            <button id="confirmButton" class="btn btn-outline-secondary btn-sm" type="button">Confirm dinner</button>
+        </div>
+    
+    ${isMobile ? `</div></nav>` : ""}
     `;
     this.container.innerHTML = content;
     this.afterRender();
   }
 
-  afterRender() {}
+  afterRender() {
+    
+
+    var dropdownB1 = document.getElementById("sel1");
+    var dropdownB2 = document.getElementById("sel2");
+    var dropdownB3 = document.getElementById("sel3");
+    var dropdownB4 = document.getElementById("sel4");
+    var dropdownB5 = document.getElementById("sel5");
+    dropdownB1.addEventListener('click', () => {this.changeGuests(1)});
+    dropdownB2.addEventListener('click', () => {
+      this.changeGuests(2)});
+    dropdownB3.addEventListener('click', () => {this.changeGuests(3)});
+    dropdownB4.addEventListener('click', () => {this.changeGuests(4)});
+    dropdownB5.addEventListener('click', () => {this.changeGuests(5)});
+
+    this.model.menu.forEach(dish => {
+      document.getElementById(dish.id.toString()+"rm").addEventListener('click', ()=>{
+        this.model.removeDishFromMenu(dish.id)
+        })});
+    
+
+  }
 
   update(payload) {
-    // TODO Lab3
+    this.render();
+  }
+  changeGuests(value){
+    //var value = document.getElementById("dropdownButton").value;
+    this.model.setNumberOfGuests(value);
   }
 }

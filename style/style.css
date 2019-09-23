@@ -50,7 +50,7 @@ h1{
 }
 
 .ingredients-banner {
-    background-color:#9eeac1;
+    background-color:#d3d8d5;
 }
 .mobileShow { display: none;}
 
@@ -63,3 +63,6 @@ h1{
   .navbar-toggler.toggler-example {
     cursor: pointer;
     }
+.btn-right{
+    float: right;
+}

@@ -4,16 +4,18 @@ const BASE_URL = "http://sunset.nada.kth.se:8080/iprog/group/5";
 //DinnerModel Object constructor
 class DinnerModel {
   constructor() {
-    this.dishes = dishesConst; // to be replaced in lab 3
-    this.nrGuests = 0;
-    this.guests = guestsConst;
+    this.dishes = this.getAllDishes(); // to be replaced in lab 3
+    this.nrGuests = 1;
+    //this.menu = []
     this.menu = menuInit;
+    this.observers = []
   }
 
   setNumberOfGuests(num) {
     if (num >= 0) {
       this.nrGuests = num;
     }
+    this.notifyObservers();
   }
 
   getNumberOfGuests() {
@@ -44,17 +46,17 @@ class DinnerModel {
   //Returns the total price of the menu (all the ingredients multiplied by number of guests).
   //Functional version
   getTotalMenuPrice() {
-    const allIngredients = this.getAllIngredients();
     const totalPrice = this.menu.reduce(function(accumulator, dish) {
       return accumulator + dish.pricePerServing;
     }, 0);
-    return totalPrice * this.nrGuests;
+    return (totalPrice * this.nrGuests).toFixed(2);
   }
 
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
   //it is removed from the menu and the new one added.
   addDishToMenu(dish) {
     this.menu.push(dish);
+    this.notifyObservers();
   }
 
   //Removes dish from menu
@@ -65,6 +67,7 @@ class DinnerModel {
     if (foundIndex != undefined) {
       this.menu.splice(foundIndex, 1);
     }
+    this.notifyObservers();
   }
 
   //function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")
@@ -129,9 +132,22 @@ class DinnerModel {
         console.error("Error:", error);
       });
   }
+  addObserver(observer){
+		this.observers.push(observer);
+  }
+  removeObserver(observer){
+    this.observers = this.observers.filter(function(ele){
+      return ele != observer;
+    });
+  }
+
+	notifyObservers(arg){
+		for (var i = 0; i < this.observers.length; i++) {
+			this.observers[i].update(arg);
+		}
+	}
 }
 
-const guestsConst = [];
 // the dishes constant contains an array of all the
 // dishes in the database. Each dish has id, name, type,
 // image (name of the image file), description and

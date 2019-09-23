@@ -18,6 +18,7 @@ class SidebarView {
 
   afterRender() {
     this.startBtn = this.container.getElementsByClassName("value-num-guests");
+    this.model.addObserver(this);
   }
 
   update(payload) {

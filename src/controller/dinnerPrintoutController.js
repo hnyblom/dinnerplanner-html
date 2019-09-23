@@ -8,7 +8,9 @@ class DinnerPrintoutController {
 
     renderView() {
       this.view.render();
-        // TODO lab 3
+      document.getElementById("backSearchBtn").addEventListener('click',()=>{
+          this.app.show("searchView");
+      })
     }
 
     // TODO Lab 3

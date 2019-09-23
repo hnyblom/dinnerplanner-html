@@ -6,9 +6,18 @@ class DishController {
         // TODO lab 3
     }
 
-    renderView() {
-      this.view.render();
-        // TODO lab 3
+    renderView(dishID, observer) {
+        this.model.removeObserver(observer);
+        this.model.addObserver(this.view);
+        this.view.render(dishID)
+        /* .then(
+            document.getElementById("backSearchBtn").addEventListener('click',()=>{
+                this.app.show("searchView")
+            })); */
+         
+        
+       
+      
     }
 
     // TODO Lab 3

@@ -1,4 +1,4 @@
-class SidebarController {
+class OverviewController {
     constructor(view, model, app) {
         this.view = view;
         this.model = model;
@@ -7,8 +7,11 @@ class SidebarController {
     }
 
     renderView() {
+      this.model.addObserver(this.view);
       this.view.render();
-        // TODO lab 3
+      document.getElementById("confirmButton").addEventListener('click',()=>{
+          this.app.show("dinnerOverviewView")
+      });
     }
 
     // TODO Lab 3

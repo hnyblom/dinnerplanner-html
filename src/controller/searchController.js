@@ -7,8 +7,13 @@ class SearchController {
     }
 
     renderView() {
+      this.model.addObserver(this.view);
       this.view.render();
-        // TODO lab 3
+      this.model.dishes.then(dishes=>{dishes.forEach(dish => {
+        document.getElementById(dish.id.toString()).addEventListener('click', ()=>{
+            this.app.show("dishView", dish.id, this.view)})
+        })});
+      
     }
     watch() {
         

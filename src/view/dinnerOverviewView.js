@@ -4,7 +4,7 @@ class DinnerOverviewView {
     this.model = model;
   }
   render() {
-    const menu = this.model.getFullMenu();
+    const menu = this.model.menu;
     const totalPrice = this.model.getTotalMenuPrice();
     const numOfGuests = this.model.getNumberOfGuests();
     const content = `
@@ -13,7 +13,7 @@ class DinnerOverviewView {
           <div class="col">
             <div class="m-3">
               <h2 class="ml-2 float-left">Dinner for ${numOfGuests} people</h2>
-              <button class="btn btn-success float-right mr-2">
+              <button id="backSearchBtn" class="btn btn-outline-secondary float-right mr-2">
                 Go back and edit dinner
               </button>
             </div>
@@ -33,7 +33,7 @@ class DinnerOverviewView {
                         <p class="card-text">${dish.title}</p>
                       </div>
                     </div>
-                    <p>${dish.pricePerServing * 0}</p>
+                    <p>${dish.pricePerServing * numOfGuests}</p>
                   </div>
                 
                 `
@@ -50,14 +50,16 @@ class DinnerOverviewView {
       <div class="row">
         <div class="col text-center">
           <hr />
-          <button class="btn btn-success">Print Full Recipe</button>
+          <button id="printBtn" class="btn btn-outline-secondary">Print Full Recipe</button>
         </div>
       </div>
       </div >
       `;
-    this.container.innerHTML += content;
+    this.container.innerHTML = content;
     this.afterRender();
   }
 
-  afterRender() {}
+  afterRender() {
+    this.model.addObserver(this);
+  }
 }

@@ -4,17 +4,12 @@ class SearchView {
     this.model = model;
   }
   render() {
-    this.model.getAllDishes().then(dishes => {
-      console.log(dishes);
+    this.model.dishes.then(dishes => {
+      //console.log(dishes);
       var content = `
-        <div class="container-fluid">
-          <div class="row">
-            <div id="overview" class="col-md-4 border"></div>
-            <div class="col-md-8">
-            <p class="text-left p-max-width mt-2 h2">Find a dish</p>
-              
-              <div class="space-sm"></div>
-              <div class="row">
+          
+              <div class="row space">
+                <div class="col"><p class="text-left p-max-width mt-2 h2">Find a dish</p></div>
                 <div class="col">
                   <input class="form-control" type="text" placeholder="Enter key words">
                 </div>
@@ -34,36 +29,31 @@ class SearchView {
               <div class="card-columns">
                 ${dishes.map(
                   dish => `
-                      <div class="card">
+                      <button id="${dish.id}" class="card">
                         <img src="${IMAGE_BASE_URL +
                           dish.image}" class="card-img-top" alt="${dish.title}">
                         <div class="card-body">
-                        ${dish.title}
+                          ${dish.title}
                         </div>
-                      </div>
+                      </button>
                     `
                 )}
               </div>           
-          </div>
-        </div>
       `;
-      this.container.innerHTML += content;
-      this.afterRender();
+      this.container.innerHTML = content;
+      this.afterRender(dishes);
     });
   }
 
-  afterRender() {
-    const overviewView = new OverviewView(
-      document.getElementById("overview"),
-      this.model
-    );
-    overviewView.render();
+  afterRender(dishes) {
+
+    
   }
 
   update(payload) {
-    // TODO lab3
+    // Dishes are changed
+    this.render();
   }
-  watch(){
-
-  }
+  watch(){}
+  
 }

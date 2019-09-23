@@ -8,9 +8,6 @@ class DishView {
     this.model.getDish(dishID).then(dish => {
       console.log(dish);
       const content = `
-        <div class="row">
-          <div id="overview" class="col-md-4 border"></div>
-          <div class="col-md-7">
             <div class="row">
               <div class="col-1"></div>
               <div class="col p-3">
@@ -19,13 +16,13 @@ class DishView {
                 <p class="pt-3">
                 ${dish.instructions}
                 </p>
-                <button class="btn btn-primary">
+                <button id="backSearchBtn" class="btn btn-outline-secondary">
                 Back to Search
                 </button>
               </div>
               <div class="col p-3">
                 <div class="border ingredients-banner p-2">
-                <h4>Ingredients for ${numOfGuests} people</h4>
+                <h4>Ingredients for ${numOfGuests}</h4>
                   <hr class="my-4"/>
                   <div>
                     <table class="table table-borderless">
@@ -38,7 +35,7 @@ class DishView {
                                     numOfGuests} ${ingredient.unit}</th>
                                   <th>${ingredient.name}</th>
                                   <th>SEK</th>
-                                  <th>2.0</th>
+                                  <th>${ingredient.price}</th>
                                 </tr>
                         `
                         )
@@ -49,7 +46,7 @@ class DishView {
                     <table class="table table-borderless">
                       <tbody>
                         <tr>
-                          <th><button class="btn btn-primary">Add to menu</button></th>
+                          <th><button id="addMenuBtn" class="btn btn-outline-secondary">Add to menu</button></th>
                           <th></th>
                           <th>SEK</th>
                           <th>200</th>
@@ -62,19 +59,21 @@ class DishView {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
       `;
-      this.container.innerHTML += content;
-      this.afterRender();
+      this.container.innerHTML = content;
+      this.afterRender(dish);
     });
+    
   }
 
-  afterRender() {
-    const overviewView = new OverviewView(
-      document.getElementById("overview"),
-      this.model
-    );
-    overviewView.render();
+  afterRender(dish) {
+
+    document.getElementById("addMenuBtn").addEventListener('click',()=>{
+      this.model.addDishToMenu(dish)
+    });
+    
+  }
+  update(dishID){
+    this.render(dishID);
   }
 }
