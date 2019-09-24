@@ -3,9 +3,9 @@ class SidebarView {
     this.container = container;
     this.guestsInput = null;
   }
-  
+
   render() {
-    var content = /* template */ `
+    let content = /* template */ `
     <div class="container text-center full-vh d-flex align-items-center justify-content-center flex-column">
       <input type="number" class="input-num-guests" value="1">
         Guests

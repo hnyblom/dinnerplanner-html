@@ -9,6 +9,23 @@ class DinnerModel {
     //this.menu = []
     this.menu = menuInit;
     this.observers = [];
+    this.searchInput = "";
+    this.searchCategory = "All";
+  }
+  getSearchInput() {
+    return this.searchInput;
+  }
+
+  getSearchCategory() {
+    return this.searchCategory;
+  }
+
+  setSearchInput(input) {
+    this.searchInput = input;
+  }
+
+  setSearchCategory(category) {
+    this.searchCategory = category;
   }
 
   setNumberOfGuests(num, arg) {
@@ -157,7 +174,7 @@ class DinnerModel {
   }
 
   notifyObservers(arg) {
-    for (var i = 0; i < this.observers.length; i++) {
+    for (let i = 0; i < this.observers.length; i++) {
       this.observers[i].update(arg);
     }
   }

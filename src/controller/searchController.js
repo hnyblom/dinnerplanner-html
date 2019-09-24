@@ -4,21 +4,17 @@ class SearchController {
     this.model = model;
     this.app = app;
   }
+
   observers() {
     this.model.addObserver(this);
   }
+
   renderView() {
-    Promise.resolve(this.model.dishes).then(dishes => {
-      this.loop(dishes, "Enter Keyword", "All");
-    });
+    this.model.getAllDishes().then(dishes => this.setListeners(dishes));
   }
 
-  loop(dishes, placeholder, dropdown) {
+  setListeners(dishes) {
     this.view.render(dishes);
-    document
-      .getElementById("searchInput")
-      .setAttribute("placeholder", placeholder);
-    document.getElementById("searchCat").value = dropdown;
     dishes.forEach(dish => {
       document
         .getElementById(dish.id.toString())
@@ -26,6 +22,7 @@ class SearchController {
           this.app.show("dishView", dish.id, this);
         });
     });
+
     document.getElementById("searchBtn").addEventListener("click", () => {
       const searchText = document
         .getElementById("searchInput")
@@ -35,15 +32,16 @@ class SearchController {
       if (category == "all") {
         category = "";
       }
+      this.model.setSearchCategory(category);
+      this.model.setSearchInput(searchText);
 
       this.model.getAllDishes(searchText, categoryLow).then(filteredDishes => {
-        this.model.dishes = filteredDishes;
-        this.loop(this.model.dishes, searchText, category);
+        this.setListeners(filteredDishes);
       });
     });
   }
 
-  update(payload) {
+  update() {
     this.renderView();
   }
 }

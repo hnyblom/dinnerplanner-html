@@ -4,21 +4,33 @@ class SearchView {
     this.model = model;
   }
   render(dishes) {
-    //console.log(dishes);
-    var content = `
+    const searchInputVal = this.model.getSearchInput();
+    const searchInputCategory = this.model.getSearchCategory();
+    console.log(searchInputCategory);
+    let content = `
           
               <div class="row space">
                 <div class="col"><p class="text-left p-max-width mt-2 h2">Find a dish</p></div>
                 <div class="col">
-                  <input id="searchInput" class="form-control" type="text" placeholder="Enter key words">
+                  <input id="searchInput" class="form-control" type="text" placeholder="Enter Keyword" value="${searchInputVal}">
                 </div>
                 <div class="col">
-                  <select id="searchCat" class="form-control">
-                    <option>All</option>
-                    <option>Apetizer</option>s
-                    <option>Main course</option>
-                    <option>Side dish</option>
-                    <option>Dessert</option>
+                  <select id="searchCat" class="form-control" value="${searchInputCategory}">
+                    ${[
+                      "All",
+                      "Appetizer",
+                      "Main course",
+                      "Side dish",
+                      "Dessert"
+                    ].map(
+                      option =>
+                        `
+                        <option ${
+                          option === searchInputCategory ? "selected" : null
+                        }>${option}</option>
+                      `
+                    )}
+                    
                   </select>
                 </div>
                 <div class="col">

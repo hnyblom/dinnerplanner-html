@@ -1,6 +1,6 @@
 const IMAGE_BASE_URL = "https://spoonacular.com/recipeImages/";
 
-window.onload = function() {  
+window.onload = function() {
   const pageContent = document.getElementById("page-content");
   const banner = document.getElementById("banner");
   const overview = document.getElementById("overview");
@@ -8,7 +8,7 @@ window.onload = function() {
   const model = new DinnerModel();
 
   this.bannerView = new Banner(banner, model);
-  this.bannerController = new BannerController(bannerView, model, this)
+  this.bannerController = new BannerController(bannerView, model, this);
   this.overviewView = new OverviewView(overview, model);
   this.overviewController = new OverviewController(overviewView, model, this);
   this.homeView = new HomeView(pageContent, model);
@@ -18,53 +18,55 @@ window.onload = function() {
   this.dishView = new DishView(rightSide, model);
   this.dishController = new DishController(dishView, model, this);
   this.dinnerPrintoutView = new DinnerPrintoutView(pageContent, model);
-  this.dinnerPrintoutController = new DinnerPrintoutController(dinnerPrintoutView, model, this);
+  this.dinnerPrintoutController = new DinnerPrintoutController(
+    dinnerPrintoutView,
+    model,
+    this
+  );
   this.dinnerOverviewView = new DinnerOverviewView(pageContent, model);
-  this.dinnerOverviewController = new DinnerOverviewController(dinnerOverviewView, model, this);
+  this.dinnerOverviewController = new DinnerOverviewController(
+    dinnerOverviewView,
+    model,
+    this
+  );
 
-  this.initialize = 
-  function initialize() {
+  this.initialize = function initialize() {
     this.bannerController.renderView();
     this.show("homeView");
-  }
-  this.watch = 
-  function watch(controller) {
-    controller.watch()
-  }
-  this.show = 
-  function show(view, arg, controller) {
-    switch(view) {
+  };
+  this.watch = function watch(controller) {
+    controller.watch();
+  };
+  this.show = function show(view, arg, controller) {
+    switch (view) {
       case "homeView":
         this.homeController.renderView();
-      break;
+        break;
       case "searchView":
-        pageContent.innerHTML = '';
+        pageContent.innerHTML = "";
         this.overviewController.observers();
         this.overviewController.renderView();
-        
+
         this.searchController.observers();
         this.searchController.renderView();
-      break;
+        break;
       case "dishView":
-        this.dishController.observers(controller)
+        this.dishController.observers(controller);
         this.dishController.renderView(arg);
-      break;
+        break;
       case "dinnerOverviewView":
-        overview.innerHTML ='';
-        rightSide.innerHTML='';
+        overview.innerHTML = "";
+        rightSide.innerHTML = "";
         this.dinnerOverviewController.observers();
         this.dinnerOverviewController.renderView();
-      break;
+        break;
       case "printView":
         this.dinnerPrintoutController.renderView();
-      break;
+        break;
     }
-  }
-  
-    
-  
-  this.initialize();
+  };
 
+  this.initialize();
 
   /**
    * IMPORTANT: app.js is the only place where you are allowed to
