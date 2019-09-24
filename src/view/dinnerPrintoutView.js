@@ -56,7 +56,5 @@ class DinnerPrintoutView {
     this.afterRender();
   }
 
-  afterRender() {
-    this.model.addObserver(this);
-  }
+  afterRender() {}
 }

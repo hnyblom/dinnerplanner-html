@@ -44,20 +44,15 @@ window.onload = function() {
         break;
       case "searchView":
         pageContent.innerHTML = "";
-        this.overviewController.observers();
         this.overviewController.renderView();
-
-        this.searchController.observers();
         this.searchController.renderView();
         break;
       case "dishView":
-        this.dishController.observers(controller);
         this.dishController.renderView(arg);
         break;
       case "dinnerOverviewView":
         overview.innerHTML = "";
         rightSide.innerHTML = "";
-        this.dinnerOverviewController.observers();
         this.dinnerOverviewController.renderView();
         break;
       case "printView":

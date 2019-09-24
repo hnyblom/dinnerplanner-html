@@ -5,10 +5,6 @@ class SearchController {
     this.app = app;
   }
 
-  observers() {
-    this.model.addObserver(this);
-  }
-
   renderView() {
     this.model.getAllDishes().then(dishes => this.setListeners(dishes));
   }
@@ -39,9 +35,5 @@ class SearchController {
         this.setListeners(filteredDishes);
       });
     });
-  }
-
-  update() {
-    this.renderView();
   }
 }

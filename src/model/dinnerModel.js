@@ -28,11 +28,11 @@ class DinnerModel {
     this.searchCategory = category;
   }
 
-  setNumberOfGuests(num, arg) {
+  setNumberOfGuests(num) {
     if (num >= 0) {
       this.nrGuests = num;
     }
-    this.notifyObservers(arg);
+    this.notifyObservers("numOfGuests");
   }
 
   getNumberOfGuests() {
@@ -86,7 +86,7 @@ class DinnerModel {
       }
     }
     this.menu.push(dish);
-    this.notifyObservers(arg);
+    this.notifyObservers("menu");
   }
 
   //Removes dish from menu
@@ -97,7 +97,7 @@ class DinnerModel {
     if (foundIndex != undefined) {
       this.menu.splice(foundIndex, 1);
     }
-    this.notifyObservers(arg);
+    this.notifyObservers("menu");
   }
 
   //function that returns all dishes of specific type (i.e. "starter", "main dish" or "dessert")

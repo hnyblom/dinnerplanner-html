@@ -59,7 +59,5 @@ class DinnerOverviewView {
     this.afterRender();
   }
 
-  afterRender() {
-    this.model.addObserver(this);
-  }
+  afterRender() {}
 }

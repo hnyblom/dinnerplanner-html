@@ -2,6 +2,7 @@ class OverviewView {
   constructor(container, model) {
     this.container = container;
     this.model = model;
+    this.model.addObserver(this);
   }
 
   // An example of creating HTML procedurally. Think about the pros and cons of this approach.
@@ -30,8 +31,8 @@ class OverviewView {
             <div class="col"><p class="text-left p-max-width mt-2 h2">My Dinner</p></div>
             
               ${
-      isMobile
-        ? `<div class="col">
+                isMobile
+                  ? `<div class="col">
                   <nav class="navbar navbar-light light-blue lighten-4 mobileShow">
                   <a class="navbar-brand" href="#"></a>
                   <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
@@ -39,22 +40,22 @@ class OverviewView {
                       <span class="navbar-toggler-icon"></span></button>
                       </div>
                       `
-        : ""
-      }  
+                  : ""
+              }  
             
         
               ${
-      isMobile
-        ? `<div class="collapsMobile collapse navbar-collapse" id="navbarSupportedContent1">`
-        : ""
-      }
+                isMobile
+                  ? `<div class="collapsMobile collapse navbar-collapse" id="navbarSupportedContent1">`
+                  : ""
+              }
             <div class="col">
               <a class="nonMobileShow" id="navContent">
                 <div><p class="text-right p-max-width mt-2">People:</p></div>
             </div>
             <div class="dropdown col">
                 <button id="dropdownButton" class="btn btn-outline-secondary btn-sm dropdown-toggle btn-right" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span id="dropdownText" class="caret">${numOfGuests}</span>
+                    <span id="num-of-guests-dropdown" class="caret">${numOfGuests}</span>
                 </button>
                 <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button id="sel1" class="dropdown-item" href="#">1</button>
@@ -65,7 +66,7 @@ class OverviewView {
                 </div>
             </div>
           </div>
-            <table class="table table-sm">
+            <table class="table table-sm menu-table">
                 <thead>
                     <tr>
                         <th scope="col">Dish name</th>
@@ -73,20 +74,20 @@ class OverviewView {
                         <th scope="col">Remove</th>
                     </tr>
                 </thead>
-                <tbody>    
+                <tbody id="menu-table-tbody">    
                   ${menu
-        .map(
-          dish => `
+                    .map(
+                      dish => `
                     <tr>
                     <td>${dish.title}</td>
                     <td>${dish.pricePerServing}</td>
                     <td><button id="${
-            dish.id
-            }rm" class="btn btn-outline-secondary btn-sm btn-right" type="button">X</button></td>
+                      dish.id
+                    }rm" class="btn btn-outline-secondary btn-sm btn-right" type="button">X</button></td>
                     </tr>
                     `
-        )
-        .join("")}
+                    )
+                    .join("")}
                 </tbody>
             </table>
             <div class="space"></div>
@@ -104,38 +105,26 @@ class OverviewView {
     this.afterRender();
   }
 
-  afterRender() {
-    let dropdownB1 = document.getElementById("sel1");
-    let dropdownB2 = document.getElementById("sel2");
-    let dropdownB3 = document.getElementById("sel3");
-    let dropdownB4 = document.getElementById("sel4");
-    let dropdownB5 = document.getElementById("sel5");
-    dropdownB1.addEventListener("click", () => {
-      this.changeGuests(1);
-    });
-    dropdownB2.addEventListener("click", () => {
-      this.changeGuests(2);
-    });
-    dropdownB3.addEventListener("click", () => {
-      this.changeGuests(3);
-    });
-    dropdownB4.addEventListener("click", () => {
-      this.changeGuests(4);
-    });
-    dropdownB5.addEventListener("click", () => {
-      this.changeGuests(5);
-    });
-
-    this.model.menu.forEach(dish => {
-      document
-        .getElementById(dish.id.toString() + "rm")
-        .addEventListener("click", () => {
-          this.model.removeDishFromMenu(dish.id);
-        });
-    });
-  }
-  changeGuests(value) {
-    //var value = document.getElementById("dropdownButton").value;
-    this.model.setNumberOfGuests(value);
+  afterRender() {}
+  update(payload) {
+    document.getElementById(
+      "num-of-guests-dropdown"
+    ).innerText = this.model.getNumberOfGuests();
+    document.getElementById("menu-table-tbody").innerHTML = `
+      ${this.model
+        .getFullMenu()
+        .map(
+          dish => `
+        <tr>
+        <td>${dish.title}</td>
+        <td>${dish.pricePerServing * this.model.getNumberOfGuests()}</td>
+        <td><button id="${
+          dish.id
+        }rm" class="btn btn-outline-secondary btn-sm btn-right" type="button">X</button></td>
+        </tr>
+        `
+        )
+        .join("")}`;
+    document.getElementById("sum").innerText = this.model.getTotalMenuPrice();
   }
 }

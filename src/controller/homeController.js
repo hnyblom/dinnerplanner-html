@@ -15,8 +15,4 @@ class HomeController {
   changeView() {
     this.app.show("searchView");
   }
-
-  update(payload) {
-    this.startBtn = $(this.container).find("#startBtn");
-  }
 }

@@ -3,6 +3,7 @@ class DishView {
     this.container = container;
     this.model = model;
     this.id = 0;
+    this.model.addObserver(this);
   }
   render(dishID) {
     const numOfGuests = this.model.getNumberOfGuests();
@@ -23,11 +24,11 @@ class DishView {
               </div>
               <div class="col p-3">
                 <div class="border ingredients-banner p-2">
-                <h4>Ingredients for ${numOfGuests}</h4>
+                <h4 id="dish-view-num-of-guests">Ingredients for ${numOfGuests}</h4>
                   <hr class="my-4"/>
                   <div>
-                    <table class="table table-borderless">
-                      <tbody>
+                    <table class="table table-borderless" id="dish-view-table">
+                      <tbody id="dish-view-table-tbody">
                       ${dish.extendedIngredients
                         .map(
                           ingredient => `
@@ -36,7 +37,11 @@ class DishView {
                                     numOfGuests} ${ingredient.unit}</th>
                                   <th>${ingredient.name}</th>
                                   <th>SEK</th>
-                                  <th>${ingredient.price}</th>
+                                  <th>${
+                                    ingredient.price === undefined
+                                      ? "N/A"
+                                      : ingredient.price
+                                  }</th>
                                 </tr>
                         `
                         )
@@ -50,7 +55,8 @@ class DishView {
                           <th><button id="addMenuBtn" class="btn btn-outline-secondary">Add to menu</button></th>
                           <th></th>
                           <th>SEK</th>
-                          <th>${dish.pricePerServing * numOfGuests}</th>
+                          <th id="dish-view-total-price">${dish.pricePerServing *
+                            numOfGuests}</th>
                         </tr>
                       </tbody>  
                       <tr>
@@ -64,14 +70,44 @@ class DishView {
       this.container.innerHTML = content;
       this.afterRender(dish);
     });
+    this.id = dishID;
     return this.model.getDish(dishID);
   }
 
   afterRender(dish) {
-
-    document.getElementById("addMenuBtn").addEventListener('click',()=>{
-      this.model.addDishToMenu(dish)
+    document.getElementById("addMenuBtn").addEventListener("click", () => {
+      this.model.addDishToMenu(dish);
     });
-    
+  }
+
+  update(payload) {
+    const numOfGuests = this.model.getNumberOfGuests();
+    if (document.getElementById("dish-view-num-of-guests")) {
+      document.getElementById(
+        "dish-view-num-of-guests"
+      ).innerText = `Ingredients for ${numOfGuests}`;
+      this.model.getDish(this.id).then(dish => {
+        document.getElementById("dish-view-table-tbody").innerHTML = `
+          ${dish.extendedIngredients
+            .map(
+              ingredient => `
+              <tr>
+              <th scope="row">${ingredient.amount * numOfGuests} ${
+                ingredient.unit
+              }</th>
+                <th>${ingredient.name}</th>
+                <th>SEK</th>
+                <th>${
+                  ingredient.price === undefined ? "N/A" : ingredient.price
+                }</th>
+                </tr>
+                `
+            )
+            .join("")}
+                `;
+        document.getElementById("dish-view-total-price").innerText =
+          numOfGuests * dish.pricePerServing;
+      });
+    }
   }
 }

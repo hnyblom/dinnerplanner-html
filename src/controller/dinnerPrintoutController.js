@@ -11,8 +11,4 @@ class DinnerPrintoutController {
       this.app.show("searchView");
     });
   }
-
-  update() {
-    this.renderView();
-  }
 }
