@@ -8,7 +8,7 @@ class DinnerModel {
     this.nrGuests = 1;
     //this.menu = []
     this.menu = menuInit;
-    this.observers = []
+    this.observers = [];
   }
 
   setNumberOfGuests(num, arg) {
@@ -55,6 +55,19 @@ class DinnerModel {
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
   //it is removed from the menu and the new one added.
   addDishToMenu(dish, arg) {
+    const commonDishTypes = this.menu.filter(x => {
+      if (x.dishTypes !== undefined && dish.dishTypes !== undefined) {
+        return x.dishTypes[0] == dish.dishTypes[0];
+      }
+    });
+    if (commonDishTypes.length > 0) {
+      const foundIndex = this.menu.findIndex(function(dish) {
+        return commonDishTypes[0].id == id;
+      });
+      if (foundIndex != undefined) {
+        this.menu.splice(foundIndex, 1);
+      }
+    }
     this.menu.push(dish);
     this.notifyObservers(arg);
   }
@@ -132,22 +145,22 @@ class DinnerModel {
         console.error("Error:", error);
       });
   }
-  addObserver(observer){
-    if(!this.observers.includes(observer)){
+  addObserver(observer) {
+    if (!this.observers.includes(observer)) {
       this.observers.push(observer);
     }
   }
-  removeObserver(observer){
-    this.observers = this.observers.filter(function(ele){
+  removeObserver(observer) {
+    this.observers = this.observers.filter(function(ele) {
       return ele != observer;
     });
   }
 
-	notifyObservers(arg){
-		for (var i = 0; i < this.observers.length; i++) {
-			this.observers[i].update(arg);
-		}
-	}
+  notifyObservers(arg) {
+    for (var i = 0; i < this.observers.length; i++) {
+      this.observers[i].update(arg);
+    }
+  }
 }
 
 // the dishes constant contains an array of all the
