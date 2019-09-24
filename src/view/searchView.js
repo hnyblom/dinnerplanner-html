@@ -4,8 +4,8 @@ class SearchView {
     this.model = model;
   }
   render(dishes) {
-      //console.log(dishes);
-      var content = `
+    //console.log(dishes);
+    var content = `
           
               <div class="row space">
                 <div class="col"><p class="text-left p-max-width mt-2 h2">Find a dish</p></div>
@@ -39,11 +39,9 @@ class SearchView {
                 )}
               </div>           
       `;
-      this.container.innerHTML = content;
-      // this.afterRender(dishes);
-
+    this.container.innerHTML = content;
+    // this.afterRender(dishes);
   }
 
   afterRender(dishes) {}
-  
 }
