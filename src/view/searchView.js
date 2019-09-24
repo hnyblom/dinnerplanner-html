@@ -6,7 +6,6 @@ class SearchView {
   render(dishes) {
     const searchInputVal = this.model.getSearchInput();
     const searchInputCategory = this.model.getSearchCategory();
-    console.log(searchInputCategory);
     let content = `
           
               <div class="row space">
