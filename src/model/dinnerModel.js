@@ -62,7 +62,7 @@ class DinnerModel {
     });
     if (commonDishTypes.length > 0) {
       const foundIndex = this.menu.findIndex(function(dish) {
-        return commonDishTypes[0].id == id;
+        return commonDishTypes[0].id == dish.id;
       });
       if (foundIndex != undefined) {
         this.menu.splice(foundIndex, 1);
